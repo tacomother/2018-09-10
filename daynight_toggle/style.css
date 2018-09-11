@@ -1,0 +1,108 @@
+:root {
+  --dayBg: #fff;
+  --nightBg: #000;
+  --toggleDay: orange;
+  --toggleNight: midnightblue;
+  --size: 105px;
+  --toggleBgTransition: background-color 0.3s ease-in;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #5786b6;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: var(--dayBg);
+  max-height: 700px;
+  min-width: 350px;
+  max-width: 600px;
+  width: 70vw;
+  height: 80vh;
+  border-radius: 8vw;
+  box-shadow: 3px 3px 20px -6px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.7s cubic-bezier(0.5, 0, 0.5, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vmax;
+}
+
+.toggle--wrapper {
+  background-color: var(--toggleDay);
+  width: 20em;
+  height: 10em;
+  border-radius: 20em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  transition: var(--toggleBgTransition);
+  box-shadow: 3px 3px 20px -6px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.toggle--knob {
+  width: 50%;
+  height: 0;
+  padding-bottom: 50%;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(0);
+  transition: transform 0.7s cubic-bezier(0.5, 0, 0.5, 1);
+  position: relative;
+  border: none;
+}
+
+.toggle--knob::before {
+  content: "";
+  display: block;
+  background-color: var(--toggleDay);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  left: -100%;
+  transform-origin: center top;
+  transform: translateX(0);
+  transition: transform 0.7s cubic-bezier(0.5, 0, 0.5, 1),
+    var(--toggleBgTransition);
+}
+
+[data-state="day"] {
+  background-color: var(--dayBg);
+}
+
+[data-state="day"] .toggle--wrapper {
+  background-color: var(--toggleDay);
+}
+
+[data-state="night"] {
+  background-color: var(--nightBg);
+}
+
+[data-state="night"] .toggle--wrapper {
+  background-color: var(--toggleNight);
+}
+
+[data-state="night"] .toggle--knob {
+  transform: translateX(100%) rotate(25deg);
+}
+
+[data-state="night"] .toggle--knob::before {
+  transform: translateX(100%) rotate(45deg);
+  background-color: var(--toggleNight);
+}
